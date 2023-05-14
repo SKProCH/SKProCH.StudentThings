@@ -9,7 +9,7 @@
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
         <PackageId>SKProCH.StudentThings.ClassesSummarizer</PackageId>
         <Title>$(PackageId)</Title>
-        <PackageVersion>0.1.3</PackageVersion>
+        <PackageVersion>0.1.4</PackageVersion>
         <Authors>SKProCH</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

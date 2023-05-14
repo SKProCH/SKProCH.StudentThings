@@ -49,6 +49,22 @@ class PlaintextReportFormatter : IReportFormatter {
                     }
                 }
             }
+            if (data.PrivateMethods.Any()) {
+                stringBuilder.AppendLine("	Private methods:");
+                foreach (var methodInfo in data.PrivateMethods) {
+                    stringBuilder.AppendLine($"		{methodInfo.Name}");
+                    stringBuilder.AppendLine($"			Returns: {methodInfo.ReturnType}");
+                    if (methodInfo.Summary != null) {
+                        stringBuilder.AppendLine($"			Summary: {methodInfo.Summary}");
+                    }
+                    if (methodInfo.Parameters.Any()) {
+                        stringBuilder.AppendLine($"			Parameters:");
+                        foreach (var parameter in methodInfo.Parameters) {
+                            stringBuilder.AppendLine($"				{parameter.Type} {parameter.Name}");
+                        }
+                    }
+                }
+            }
         }
         return stringBuilder.ToString();
     }
