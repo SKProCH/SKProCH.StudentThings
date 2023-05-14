@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SKProCH.StudentThings.ClassesSummarizer\SKProCH.StudentThings.ClassesSummarizer.csproj" OutputItemType="Analyzer"/>
+
+<!--        <PackageReference Include="SKProCH.StudentThings.ClassesSummarizer" Version="0.1.0">-->
+<!--            <PrivateAssets>all</PrivateAssets>-->
+<!--            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+<!--        </PackageReference>-->
+    </ItemGroup>
+
+</Project>
