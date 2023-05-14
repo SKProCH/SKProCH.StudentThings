@@ -68,13 +68,13 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
             .Select(FieldInfo.FromField);
 
         var publicMethods = members
-            .Cast<IMethodSymbol>()
+            .OfType<IMethodSymbol>()
             .Where(methodSymbol => methodSymbol.Name != ".ctor")
             .Where(methodSymbol => methodSymbol.DeclaredAccessibility == Accessibility.Public)
             .Select(MethodInfo.FromMethod);
 
         var privateMethods = members
-            .Cast<IMethodSymbol>()
+            .OfType<IMethodSymbol>()
             .Where(methodSymbol => methodSymbol.Name != ".ctor")
             .Where(methodSymbol => methodSymbol.DeclaredAccessibility != Accessibility.Public)
             .Select(MethodInfo.FromMethod);
