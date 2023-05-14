@@ -52,6 +52,9 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
         }
     }
 
+    private static readonly ImmutableArray<MethodKind> AllowedMethodKinds = 
+        ImmutableArray.Create(MethodKind.DeclareMethod, MethodKind.ExplicitInterfaceImplementation, MethodKind.Ordinary, MethodKind.ReducedExtension);
+
     private ClassData GetClassData(SymbolAnalysisContext analysisContext) {
         var symbol = (INamedTypeSymbol)analysisContext.Symbol;
         var interfaceNames = symbol.Interfaces.Select(typeSymbol => typeSymbol.Name);
@@ -71,7 +74,8 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
         var methods = members
             .OfType<IMethodSymbol>()
             .Where(methodSymbol => !methodSymbol.IsImplicitlyDeclared)
-            .Where(methodSymbol => methodSymbol.MethodKind == MethodKind.DeclareMethod);
+            .Where(methodSymbol => AllowedMethodKinds.Contains(methodSymbol.MethodKind))
+            .ToList();
 
         var publicMethods = methods
             .Where(methodSymbol => methodSymbol.DeclaredAccessibility == Accessibility.Public)
