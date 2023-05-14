@@ -32,14 +32,14 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
         if (analysisContext.Options.AnalyzerConfigOptionsProvider.GlobalOptions.TryGetValue("build_property.projectdir", out var projectDir)) {
             var path = Path.Combine(projectDir, "bin");
             Directory.CreateDirectory(path);
-            
+
             ReportResults(classDatas, (reportType, reportText) => {
                 File.WriteAllText(Path.Combine(path, "ClassesSummarizer." + reportType), reportText);
             });
             analysisContext.ReportDiagnostic(Diagnostic.Create(SummarySavedDiagnostic, null, path));
             return;
         }
-        
+
         ReportResults(classDatas, (reportType, reportText) => {
             analysisContext.ReportDiagnostic(Diagnostic.Create(SummaryGeneratedDiagnostic, null, reportType, reportText));
         });
@@ -64,18 +64,20 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
 
         var fields = members
             .OfType<IFieldSymbol>()
+            .Where(fieldSymbol => !fieldSymbol.IsImplicitlyDeclared)
             .Where(fieldSymbol => !fieldSymbol.IsConst)
             .Select(FieldInfo.FromField);
 
-        var publicMethods = members
+        var methods = members
             .OfType<IMethodSymbol>()
-            .Where(methodSymbol => methodSymbol.Name != ".ctor")
+            .Where(methodSymbol => !methodSymbol.IsImplicitlyDeclared)
+            .Where(methodSymbol => methodSymbol.MethodKind == MethodKind.DeclareMethod);
+
+        var publicMethods = methods
             .Where(methodSymbol => methodSymbol.DeclaredAccessibility == Accessibility.Public)
             .Select(MethodInfo.FromMethod);
 
-        var privateMethods = members
-            .OfType<IMethodSymbol>()
-            .Where(methodSymbol => methodSymbol.Name != ".ctor")
+        var privateMethods = methods
             .Where(methodSymbol => methodSymbol.DeclaredAccessibility != Accessibility.Public)
             .Select(MethodInfo.FromMethod);
 
