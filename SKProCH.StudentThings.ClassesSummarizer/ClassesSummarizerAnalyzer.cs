@@ -24,7 +24,7 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
 
     private void OnCompilationStart(CompilationStartAnalysisContext compilationStartContext) {
         var testDatas = new List<ClassData>();
-        compilationStartContext.RegisterSymbolAction(context => testDatas.Add(GetClassData(context)), SymbolKind.NamedType);
+        compilationStartContext.RegisterSymbolAction(context => testDatas.Add(ClassData.FromClass((INamedTypeSymbol)context.Symbol)), SymbolKind.NamedType);
         compilationStartContext.RegisterCompilationEndAction(context => ReportResults(context, testDatas));
     }
 
@@ -51,43 +51,6 @@ public class ClassesSummarizerAnalyzer : DiagnosticAnalyzer {
             doReport(reportFormatter.FormatName, reportText);
         }
     }
-
-    private static readonly ImmutableArray<MethodKind> AllowedMethodKinds = 
-        ImmutableArray.Create(MethodKind.DeclareMethod, MethodKind.ExplicitInterfaceImplementation, MethodKind.Ordinary, MethodKind.ReducedExtension);
-
-    private ClassData GetClassData(SymbolAnalysisContext analysisContext) {
-        var symbol = (INamedTypeSymbol)analysisContext.Symbol;
-        var interfaceNames = symbol.Interfaces.Select(typeSymbol => typeSymbol.Name);
-        var members = symbol.GetMembers();
-
-        var constants = members
-            .OfType<IFieldSymbol>()
-            .Where(fieldSymbol => fieldSymbol.IsConst)
-            .Select(FieldInfo.FromField);
-
-        var fields = members
-            .OfType<IFieldSymbol>()
-            .Where(fieldSymbol => !fieldSymbol.IsImplicitlyDeclared)
-            .Where(fieldSymbol => !fieldSymbol.IsConst)
-            .Select(FieldInfo.FromField);
-
-        var methods = members
-            .OfType<IMethodSymbol>()
-            .Where(methodSymbol => !methodSymbol.IsImplicitlyDeclared)
-            .Where(methodSymbol => AllowedMethodKinds.Contains(methodSymbol.MethodKind))
-            .ToList();
-
-        var publicMethods = methods
-            .Where(methodSymbol => methodSymbol.DeclaredAccessibility == Accessibility.Public)
-            .Select(MethodInfo.FromMethod);
-
-        var privateMethods = methods
-            .Where(methodSymbol => methodSymbol.DeclaredAccessibility != Accessibility.Public)
-            .Select(MethodInfo.FromMethod);
-
-        return new ClassData(symbol.Name, symbol.BaseType?.Name, interfaceNames, constants, fields, publicMethods, privateMethods);
-    }
-
 
     private const string Category = "Usage";
     private static readonly DiagnosticDescriptor SummarySavedDiagnostic = new("DS001",
