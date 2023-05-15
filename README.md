@@ -20,7 +20,7 @@ This tool generates a report on the classes and their contents and puts them in 
 > For external and internal class methods, the name, input data (description of parameters), executed function, and output data (return value) are specified.  
 
 The result of the tool's work is a file with a JSON structure and a file with the following structure:  
-![ClassesSummarizerOutput.png](wiki/ClassesSummarizerOutput.png)
+![ClassesSummarizerOutput.png](https://raw.githubusercontent.com/SKProCH/SKProCH.StudentThings/master/wiki/ClassesSummarizerOutput.png)
 
 
 #### Usage
@@ -48,7 +48,7 @@ The result of the tool's work is a file with a JSON structure and a file with th
 > Для внешних и внутренних методов класса указывают название, входные данные (описание параметров), выполняемую функцию, выходные данные (возвращаемое значение).  
 
 Результат работы - файл с JSON структурой и файл со следующей структурой:  
-![ClassesSummarizerOutput.png](wiki/ClassesSummarizerOutput.png)  
+![ClassesSummarizerOutput.png](https://raw.githubusercontent.com/SKProCH/SKProCH.StudentThings/master/wiki/ClassesSummarizerOutput.png)  
 
 #### Использование
 1. Установить [пакет `SKProCH.StudentThings.ClassesSummarizer` из NuGet](https://www.nuget.org/packages/SKProCH.StudentThings.ClassesSummarizer):

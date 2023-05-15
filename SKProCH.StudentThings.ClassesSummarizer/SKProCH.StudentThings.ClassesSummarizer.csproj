@@ -16,7 +16,7 @@
         <PackageId>SKProCH.StudentThings.ClassesSummarizer</PackageId>
         <Title>$(PackageId)</Title>
         <Description>This tool generates a report on the classes and their contents and puts them in a separate file during project build</Description>
-        <PackageVersion>0.1.5</PackageVersion>
+        <PackageVersion>1.0.0</PackageVersion>
         <Authors>SKProCH</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
