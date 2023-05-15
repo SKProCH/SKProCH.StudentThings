@@ -2,22 +2,25 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <IncludeBuildOutput>false</IncludeBuildOutput>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <IsRoslynComponent>true</IsRoslynComponent>
         <DevelopmentDependency>true</DevelopmentDependency>
         <NoWarn>RS0016</NoWarn>
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>SKProCH.StudentThings.ClassesSummarizer</RootNamespace>
+        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <Nullable>enable</Nullable>
+        
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PackageId>SKProCH.StudentThings.ClassesSummarizer</PackageId>
         <Title>$(PackageId)</Title>
+        <Description>This tool generates a report on the classes and their contents and puts them in a separate file during project build</Description>
         <PackageVersion>0.1.5</PackageVersion>
         <Authors>SKProCH</Authors>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-        <NoPackageAnalysis>true</NoPackageAnalysis>
-        <LangVersion>latest</LangVersion>
-        <RootNamespace>SKProCH.StudentThings.ClassesSummarizer</RootNamespace>
-        <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-        <Nullable>enable</Nullable>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)'=='Release'">
         <Optimize>false</Optimize>
@@ -37,5 +40,6 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 </Project>
